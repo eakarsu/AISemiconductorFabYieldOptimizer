@@ -4,22 +4,24 @@ import { toast } from 'react-toastify';
 import {
   FiCpu, FiSliders, FiTrendingUp, FiSearch, FiLink, FiGrid,
   FiBox, FiServer, FiFileText, FiBarChart2, FiTool, FiAlertTriangle,
-  FiLogOut
+  FiLogOut, FiZap, FiGlobe
 } from 'react-icons/fi';
 
 const features = [
-  { title: 'Wafer Defect Classification', desc: 'AI-powered defect detection and classification using deep learning models', icon: FiCpu, path: '/wafer-defects', ai: true },
+  { title: 'Wafer Defect Classification', desc: 'AI-powered defect detection and classification. Includes SEM image vision analysis.', icon: FiCpu, path: '/wafer-defects', ai: true },
   { title: 'Process Parameter Optimization', desc: 'Optimize fab process parameters for maximum yield using AI', icon: FiSliders, path: '/process-parameters', ai: true },
   { title: 'Yield Prediction', desc: 'Predict wafer yield with ML models trained on historical data', icon: FiTrendingUp, path: '/yield-predictions', ai: true },
   { title: 'Root Cause Analysis', desc: 'AI-driven root cause analysis for yield excursions', icon: FiSearch, path: '/root-cause-analysis', ai: true },
+  { title: 'Excursion War Room', desc: 'AI-powered real-time war room for active yield excursions with cause chain', icon: FiZap, path: '/war-room', ai: true },
   { title: 'Equipment Matching', desc: 'Match equipment configurations for optimal performance', icon: FiLink, path: '/equipment-matching', ai: true },
   { title: 'Defect Pattern Recognition', desc: 'Recognize spatial defect patterns on wafer maps', icon: FiGrid, path: '/defect-patterns', ai: true },
   { title: 'Wafer Lot Management', desc: 'Track and manage wafer lots through the fab process', icon: FiBox, path: '/wafer-lots', ai: false },
   { title: 'Equipment Inventory', desc: 'Manage fab equipment inventory and status tracking', icon: FiServer, path: '/equipment-inventory', ai: false },
-  { title: 'Process Recipes', desc: 'Create and manage process recipes for fab operations', icon: FiFileText, path: '/process-recipes', ai: false },
+  { title: 'Process Recipes', desc: 'Create and manage process recipes. AI optimizer suggests yield improvements.', icon: FiFileText, path: '/process-recipes', ai: true },
   { title: 'Quality Metrics', desc: 'Monitor and track quality metrics across the fab', icon: FiBarChart2, path: '/quality-metrics', ai: false },
   { title: 'Maintenance Scheduling', desc: 'Schedule and track equipment maintenance activities', icon: FiTool, path: '/maintenance-schedules', ai: false },
-  { title: 'SPC Alerts', desc: 'Statistical process control alerts and monitoring', icon: FiAlertTriangle, path: '/spc-alerts', ai: false },
+  { title: 'SPC Alerts', desc: 'SPC alerts with Western Electric Rules auto-evaluation engine', icon: FiAlertTriangle, path: '/spc-alerts', ai: true },
+  { title: 'Facilities', desc: 'Multi-tenant fab facility management', icon: FiGlobe, path: '/facilities', ai: false },
 ];
 
 function Dashboard() {

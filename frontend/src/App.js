@@ -14,6 +14,35 @@ import ProcessRecipesPage from './pages/ProcessRecipesPage';
 import QualityMetricsPage from './pages/QualityMetricsPage';
 import MaintenanceSchedulesPage from './pages/MaintenanceSchedulesPage';
 import SpcAlertsPage from './pages/SpcAlertsPage';
+import WarRoomPage from './pages/WarRoomPage';
+import FacilitiesPage from './pages/FacilitiesPage';
+import ProcessOptimizationPage from './pages/ProcessOptimizationPage';
+import DefectPredictionPage from './pages/DefectPredictionPage';
+import EquipmentHealthForecastPage from './pages/EquipmentHealthForecastPage';
+import MultiObjectiveOptimizePage from './pages/MultiObjectiveOptimizePage';
+import ShiftLogDigestPage from './pages/ShiftLogDigestPage';
+
+// === Batch 07 Gaps & Frontend Mounts ===
+import CfYieldPredictionByProcessParameters from './pages/CfYieldPredictionByProcessParameters';
+import CfRootCauseAnalysisAutomation from './pages/CfRootCauseAnalysisAutomation';
+import CfProcessRecipeOptimization from './pages/CfProcessRecipeOptimization';
+import CfEquipmentPredictiveMaintenance from './pages/CfEquipmentPredictiveMaintenance';
+import CfDefectPatternRecognition from './pages/CfDefectPatternRecognition';
+import CfMultiobjectiveOptimization from './pages/CfMultiobjectiveOptimization';
+import GapNoYieldpredictionModeldriven from './pages/GapNoYieldpredictionModeldriven';
+import GapNoRootcauseanalysisAiOnlyManualRecords from './pages/GapNoRootcauseanalysisAiOnlyManualRecords';
+import GapNoProcessoptimizationParameterRecs from './pages/GapNoProcessoptimizationParameterRecs';
+import GapNoDefectpredictionRatetypeMl from './pages/GapNoDefectpredictionRatetypeMl';
+import GapNoEquipmenthealthforecast from './pages/GapNoEquipmenthealthforecast';
+import GapNoReciperecommendationAi from './pages/GapNoReciperecommendationAi';
+import GapNoRealtimeSpcChartingRecordsOnly from './pages/GapNoRealtimeSpcChartingRecordsOnly';
+import GapNoIntegrationWithFabEquipmentSecsgem from './pages/GapNoIntegrationWithFabEquipmentSecsgem';
+import GapNoEquipmentCalibrationTracking from './pages/GapNoEquipmentCalibrationTracking';
+import GapNoMeserpIntegration from './pages/GapNoMeserpIntegration';
+import GapNoAlertingnotificationsSystem from './pages/GapNoAlertingnotificationsSystem';
+import GapLimitedAuditrbacForSensitiveRecipeData from './pages/GapLimitedAuditrbacForSensitiveRecipeData';
+// === End Batch 07 ===
+
 
 function PrivateRoute({ children }) {
   const token = localStorage.getItem('token');
@@ -38,6 +67,33 @@ function App() {
         <Route path="/quality-metrics" element={<PrivateRoute><QualityMetricsPage /></PrivateRoute>} />
         <Route path="/maintenance-schedules" element={<PrivateRoute><MaintenanceSchedulesPage /></PrivateRoute>} />
         <Route path="/spc-alerts" element={<PrivateRoute><SpcAlertsPage /></PrivateRoute>} />
+        <Route path="/war-room" element={<PrivateRoute><WarRoomPage /></PrivateRoute>} />
+        <Route path="/facilities" element={<PrivateRoute><FacilitiesPage /></PrivateRoute>} />
+        <Route path="/process-optimization" element={<PrivateRoute><ProcessOptimizationPage /></PrivateRoute>} />
+        <Route path="/defect-prediction" element={<PrivateRoute><DefectPredictionPage /></PrivateRoute>} />
+        <Route path="/equipment-health-forecast" element={<PrivateRoute><EquipmentHealthForecastPage /></PrivateRoute>} />
+        <Route path="/multi-objective-optimize" element={<PrivateRoute><MultiObjectiveOptimizePage /></PrivateRoute>} />
+        <Route path="/shift-log-digest" element={<PrivateRoute><ShiftLogDigestPage /></PrivateRoute>} />
+          // === Batch 07 Gaps & Frontend Mounts ===
+          <Route path='/cf-yield-prediction-by-process-parameters' element={<CfYieldPredictionByProcessParameters />} />
+          <Route path='/cf-root-cause-analysis-automation' element={<CfRootCauseAnalysisAutomation />} />
+          <Route path='/cf-process-recipe-optimization' element={<CfProcessRecipeOptimization />} />
+          <Route path='/cf-equipment-predictive-maintenance' element={<CfEquipmentPredictiveMaintenance />} />
+          <Route path='/cf-defect-pattern-recognition' element={<CfDefectPatternRecognition />} />
+          <Route path='/cf-multiobjective-optimization' element={<CfMultiobjectiveOptimization />} />
+          <Route path='/gap-no-yieldprediction-modeldriven' element={<GapNoYieldpredictionModeldriven />} />
+          <Route path='/gap-no-rootcauseanalysis-ai-only-manual-records' element={<GapNoRootcauseanalysisAiOnlyManualRecords />} />
+          <Route path='/gap-no-processoptimization-parameter-recs' element={<GapNoProcessoptimizationParameterRecs />} />
+          <Route path='/gap-no-defectprediction-ratetype-ml' element={<GapNoDefectpredictionRatetypeMl />} />
+          <Route path='/gap-no-equipmenthealthforecast' element={<GapNoEquipmenthealthforecast />} />
+          <Route path='/gap-no-reciperecommendation-ai' element={<GapNoReciperecommendationAi />} />
+          <Route path='/gap-no-realtime-spc-charting-records-only' element={<GapNoRealtimeSpcChartingRecordsOnly />} />
+          <Route path='/gap-no-integration-with-fab-equipment-secsgem' element={<GapNoIntegrationWithFabEquipmentSecsgem />} />
+          <Route path='/gap-no-equipment-calibration-tracking' element={<GapNoEquipmentCalibrationTracking />} />
+          <Route path='/gap-no-meserp-integration' element={<GapNoMeserpIntegration />} />
+          <Route path='/gap-no-alertingnotifications-system' element={<GapNoAlertingnotificationsSystem />} />
+          <Route path='/gap-limited-auditrbac-for-sensitive-recipe-data' element={<GapLimitedAuditrbacForSensitiveRecipeData />} />
+          // === End Batch 07 ===
       </Routes>
     </div>
   );

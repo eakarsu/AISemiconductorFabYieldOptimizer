@@ -6,10 +6,13 @@ const { callOpenRouter } = require('./aiHelper');
 // GET /api/process-parameters - Get all process parameters
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query(
-      'SELECT * FROM process_parameters ORDER BY created_at DESC'
-    );
-    res.json(result.rows);
+    const page = Math.max(1, parseInt(req.query.page) || 1);
+    const limit = Math.min(100, parseInt(req.query.limit) || 20);
+    const offset = (page - 1) * limit;
+    const countQ = await pool.query('SELECT COUNT(*) FROM process_parameters');
+    const total = parseInt(countQ.rows[0].count);
+    const dataQ = await pool.query('SELECT * FROM process_parameters ORDER BY created_at DESC LIMIT $1 OFFSET $2', [limit, offset]);
+    res.json({ data: dataQ.rows, pagination: { page, limit, total, totalPages: Math.ceil(total / limit) } });
   } catch (err) {
     console.error('Error fetching process parameters:', err);
     res.status(500).json({ error: 'Internal server error' });

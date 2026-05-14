@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
-import { FiPlus, FiRefreshCw, FiCheck } from 'react-icons/fi';
+import { FiPlus, FiRefreshCw, FiCheck, FiActivity, FiSearch } from 'react-icons/fi';
 import api from '../services/api';
 import Navbar from '../components/Navbar';
 import DetailModal from '../components/DetailModal';
@@ -67,6 +67,46 @@ function SpcAlertsPage() {
     }
   };
 
+  const [evaluating, setEvaluating] = useState(false);
+  const [evalResult, setEvalResult] = useState(null);
+  const [analyzingId, setAnalyzingId] = useState(null);
+  const [analysis, setAnalysis] = useState(null);
+
+  const handleAnalyzePattern = async (e, item) => {
+    e.stopPropagation();
+    const aid = item._id || item.id;
+    setAnalyzingId(aid);
+    setAnalysis(null);
+    try {
+      const res = await api.post(`/spc-alerts/${aid}/analyze-pattern`);
+      setAnalysis(res.data);
+      toast.success('Pattern analysis complete');
+    } catch (err) {
+      if (err.response?.status === 503) {
+        toast.error('AI service unavailable: OPENROUTER_API_KEY is not configured.');
+      } else {
+        toast.error('Pattern analysis failed: ' + (err.response?.data?.error || err.message));
+      }
+    } finally {
+      setAnalyzingId(null);
+    }
+  };
+
+  const handleEvaluateSPC = async () => {
+    setEvaluating(true);
+    setEvalResult(null);
+    try {
+      const res = await api.post('/spc-alerts/evaluate');
+      setEvalResult(res.data);
+      toast.success(`SPC evaluation complete: ${res.data.violations_found} violations found`);
+      fetchItems();
+    } catch (err) {
+      toast.error('SPC evaluation failed');
+    } finally {
+      setEvaluating(false);
+    }
+  };
+
   return (
     <div className="page">
       <Navbar title="SPC Alerts" />
@@ -74,12 +114,30 @@ function SpcAlertsPage() {
         <div className="page-toolbar">
           <h2>SPC Alerts</h2>
           <div className="toolbar-actions">
+            <button className="btn btn-ai" onClick={handleEvaluateSPC} disabled={evaluating}>
+              <FiActivity size={14} /> {evaluating ? 'Evaluating...' : 'Run SPC Rules Evaluator'}
+            </button>
             <button className="btn btn-primary" onClick={() => setShowNew(true)}>
               <FiPlus size={14} /> New Alert
             </button>
             <button className="btn btn-ghost" onClick={fetchItems}><FiRefreshCw size={14} /></button>
           </div>
         </div>
+        {evalResult && (
+          <div style={{ background: '#0f172a', padding: 16, borderRadius: 8, marginBottom: 16, border: '1px solid #334155' }}>
+            <h4 style={{ color: '#6366f1', marginBottom: 8 }}>SPC Evaluation Results</h4>
+            <p style={{ color: '#94a3b8' }}>Evaluated <strong style={{ color: '#e2e8f0' }}>{evalResult.evaluated_parameters}</strong> parameters, found <strong style={{ color: evalResult.violations_found > 0 ? '#ef4444' : '#22c55e' }}>{evalResult.violations_found}</strong> violations.</p>
+          </div>
+        )}
+
+        {analysis && (
+          <div style={{ background: '#0f172a', padding: 16, borderRadius: 8, marginBottom: 16, border: '1px solid #334155' }}>
+            <h4 style={{ color: '#6366f1', marginBottom: 8 }}>AI Pattern Analysis — alert {analysis.alert_id} ({analysis.parameter_name})</h4>
+            <pre style={{ color: '#e2e8f0', fontSize: 12, overflow: 'auto', maxHeight: 360 }}>
+              {JSON.stringify(analysis.analysis, null, 2)}
+            </pre>
+          </div>
+        )}
 
         {loading ? (
           <div className="loading-container"><div className="spinner" /></div>
@@ -112,6 +170,14 @@ function SpcAlertsPage() {
                           <FiCheck size={12} /> Acknowledge
                         </button>
                       )}
+                      <button
+                        className="btn btn-sm btn-ai"
+                        style={{ marginLeft: 8 }}
+                        onClick={(e) => handleAnalyzePattern(e, item)}
+                        disabled={analyzingId === (item._id || item.id)}
+                      >
+                        <FiSearch size={12} /> {analyzingId === (item._id || item.id) ? 'Analyzing...' : 'AI Analyze'}
+                      </button>
                     </td>
                   </tr>
                 ))}

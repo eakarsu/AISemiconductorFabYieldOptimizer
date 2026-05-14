@@ -253,6 +253,67 @@ const initializeDatabase = async () => {
       )
     `);
 
+    // Facilities table (multi-tenancy)
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS facilities (
+        id SERIAL PRIMARY KEY,
+        fab_name VARCHAR(255) NOT NULL,
+        location VARCHAR(255),
+        technology_nodes TEXT,
+        capacity_wafers_per_month INTEGER,
+        status VARCHAR(50) DEFAULT 'active',
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP
+      )
+    `);
+
+    // AI results persistence
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS ai_results (
+        id SERIAL PRIMARY KEY,
+        endpoint VARCHAR(255),
+        entity_type VARCHAR(100),
+        entity_id INTEGER,
+        user_id INTEGER,
+        prompt_summary TEXT,
+        result JSONB,
+        model VARCHAR(100),
+        created_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
+    // Add fab_id to domain tables (safe migrations)
+    const domainTables = [
+      'wafer_defects', 'process_parameters', 'yield_predictions',
+      'root_cause_analyses', 'equipment_matching', 'defect_patterns',
+      'wafer_lots', 'equipment_inventory', 'process_recipes',
+      'quality_metrics', 'maintenance_schedules', 'spc_alerts'
+    ];
+    for (const tbl of domainTables) {
+      await client.query(`
+        ALTER TABLE ${tbl} ADD COLUMN IF NOT EXISTS fab_id INTEGER REFERENCES facilities(id) ON DELETE SET NULL
+      `);
+    }
+
+    // Ensure ai_classification_data is JSONB
+    await client.query(`
+      ALTER TABLE wafer_defects
+        ALTER COLUMN ai_classification_data TYPE TEXT
+    `).catch(() => {}); // ignore if already correct type
+
+    // Excursion war room results
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS excursion_war_rooms (
+        id SERIAL PRIMARY KEY,
+        lot_id VARCHAR(100),
+        cause_chain JSONB,
+        suspect_tools JSONB,
+        recommended_actions JSONB,
+        ai_raw_response TEXT,
+        created_at TIMESTAMP DEFAULT NOW()
+      )
+    `);
+
     await client.query('COMMIT');
     console.log('All database tables initialized successfully');
   } catch (error) {
