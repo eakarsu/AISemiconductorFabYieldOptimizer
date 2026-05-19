@@ -42,10 +42,14 @@ app.use('/api/gap-no-alertingnotifications-system', require('./routes/gap-no-ale
 app.use('/api/gap-limited-auditrbac-for-sensitive-recipe-data', require('./routes/gap-limited-auditrbac-for-sensitive-recipe-data'));
 // === End Batch 07 ===
 
+// Custom Views (Fab Views) - explicit mount BEFORE 404
+const customViewsRoute = require('./routes/customViews');
+app.use('/api/custom-views', authMiddleware, customViewsRoute);
+
 // Mount all other route files with auth middleware
 const fs = require('fs');
 const routesDir = path.join(__dirname, 'routes');
-const excludeFiles = ['aiHelper.js', 'auth.js'];
+const excludeFiles = ['aiHelper.js', 'auth.js', 'customViews.js'];
 if (fs.existsSync(routesDir)) {
   fs.readdirSync(routesDir).forEach((file) => {
     if (file.endsWith('.js') && !excludeFiles.includes(file)) {

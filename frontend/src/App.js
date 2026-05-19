@@ -21,6 +21,7 @@ import DefectPredictionPage from './pages/DefectPredictionPage';
 import EquipmentHealthForecastPage from './pages/EquipmentHealthForecastPage';
 import MultiObjectiveOptimizePage from './pages/MultiObjectiveOptimizePage';
 import ShiftLogDigestPage from './pages/ShiftLogDigestPage';
+import CustomViewsPage from './pages/CustomViewsPage';
 
 // === Batch 07 Gaps & Frontend Mounts ===
 import CfYieldPredictionByProcessParameters from './pages/CfYieldPredictionByProcessParameters';
@@ -74,6 +75,7 @@ function App() {
         <Route path="/equipment-health-forecast" element={<PrivateRoute><EquipmentHealthForecastPage /></PrivateRoute>} />
         <Route path="/multi-objective-optimize" element={<PrivateRoute><MultiObjectiveOptimizePage /></PrivateRoute>} />
         <Route path="/shift-log-digest" element={<PrivateRoute><ShiftLogDigestPage /></PrivateRoute>} />
+        <Route path="/custom-views" element={<PrivateRoute><CustomViewsPage /></PrivateRoute>} />
           // === Batch 07 Gaps & Frontend Mounts ===
           <Route path='/cf-yield-prediction-by-process-parameters' element={<CfYieldPredictionByProcessParameters />} />
           <Route path='/cf-root-cause-analysis-automation' element={<CfRootCauseAnalysisAutomation />} />
