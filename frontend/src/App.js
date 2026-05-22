@@ -22,6 +22,7 @@ import EquipmentHealthForecastPage from './pages/EquipmentHealthForecastPage';
 import MultiObjectiveOptimizePage from './pages/MultiObjectiveOptimizePage';
 import ShiftLogDigestPage from './pages/ShiftLogDigestPage';
 import CustomViewsPage from './pages/CustomViewsPage';
+import ReticlePodQueuePage from './pages/ReticlePodQueuePage';
 
 // === Batch 07 Gaps & Frontend Mounts ===
 import CfYieldPredictionByProcessParameters from './pages/CfYieldPredictionByProcessParameters';
@@ -42,6 +43,9 @@ import GapNoEquipmentCalibrationTracking from './pages/GapNoEquipmentCalibration
 import GapNoMeserpIntegration from './pages/GapNoMeserpIntegration';
 import GapNoAlertingnotificationsSystem from './pages/GapNoAlertingnotificationsSystem';
 import GapLimitedAuditrbacForSensitiveRecipeData from './pages/GapLimitedAuditrbacForSensitiveRecipeData';
+import CodexCustomVizFeature from './pages/CodexCustomVizFeature';
+import CodexOperationsFeature from './pages/CodexOperationsFeature';
+
 // === End Batch 07 ===
 
 
@@ -54,6 +58,9 @@ function App() {
   return (
     <div className="app">
       <Routes>
+        <Route path="/codex/custom-viz" element={<CodexCustomVizFeature />} />
+        <Route path="/codex/operations" element={<CodexOperationsFeature />} />
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         <Route path="/wafer-defects" element={<PrivateRoute><WaferDefectsPage /></PrivateRoute>} />
@@ -76,6 +83,7 @@ function App() {
         <Route path="/multi-objective-optimize" element={<PrivateRoute><MultiObjectiveOptimizePage /></PrivateRoute>} />
         <Route path="/shift-log-digest" element={<PrivateRoute><ShiftLogDigestPage /></PrivateRoute>} />
         <Route path="/custom-views" element={<PrivateRoute><CustomViewsPage /></PrivateRoute>} />
+        <Route path="/reticle-pod-queue" element={<PrivateRoute><ReticlePodQueuePage /></PrivateRoute>} />
           // === Batch 07 Gaps & Frontend Mounts ===
           <Route path='/cf-yield-prediction-by-process-parameters' element={<CfYieldPredictionByProcessParameters />} />
           <Route path='/cf-root-cause-analysis-automation' element={<CfRootCauseAnalysisAutomation />} />

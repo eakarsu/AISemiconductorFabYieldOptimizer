@@ -22,6 +22,8 @@ const features = [
   { title: 'Maintenance Scheduling', desc: 'Schedule and track equipment maintenance activities', icon: FiTool, path: '/maintenance-schedules', ai: false },
   { title: 'SPC Alerts', desc: 'SPC alerts with Western Electric Rules auto-evaluation engine', icon: FiAlertTriangle, path: '/spc-alerts', ai: true },
   { title: 'Facilities', desc: 'Multi-tenant fab facility management', icon: FiGlobe, path: '/facilities', ai: false },
+  { title: 'Fab Views', desc: 'Custom yield trend, defect heatmap, spec sheet PDF, and yield rule editor', icon: FiGrid, path: '/custom-views', ai: false },
+  { title: 'Reticle Pod Queue', desc: 'Reticle pod readiness, scanner assignment, and hot-lot delay tracking', icon: FiBox, path: '/reticle-pod-queue', ai: false },
 ];
 
 function Dashboard() {

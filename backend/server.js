@@ -45,6 +45,7 @@ app.use('/api/gap-limited-auditrbac-for-sensitive-recipe-data', require('./route
 // Custom Views (Fab Views) - explicit mount BEFORE 404
 const customViewsRoute = require('./routes/customViews');
 app.use('/api/custom-views', authMiddleware, customViewsRoute);
+app.use('/api/reticle-pod-queue', authMiddleware, require('./routes/reticlePodQueue'));
 
 // Mount all other route files with auth middleware
 const fs = require('fs');
